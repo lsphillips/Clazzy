@@ -1,19 +1,14 @@
-## Clazz.js
+## Clazzy
 
-A cross platform JavaScript library that provides a classical interface to a prototype system.
+A cross platform JavaScript library that provides a classical interface, using a DSL inspired by Ruby, to a prototype system.
 
-Clazz.js was built with some very simple goals in mind:
-
-* 
-* 
-* 
 
 ## Usage
 
 ### Creating a class
 
 ``` js
-var Foo = Clazz.create(
+var Foo = Clazzy.create(
 {
 	initialize : function ()
 	{
@@ -46,13 +41,13 @@ var Foo = Clazz.create(
 var foo = new Foo();
 ```
 
-*Note: All instance properties of your class should be defined within the constructor, anything in the definition treated as an instance member is applied to the Class prototype, meaning it will be shared by all instances of the class.
+*Note: All instance properties of your class should be defined within the constructor, anything in the definition treated as an instance member is applied to the class prototype, meaning it will be shared by all instances of the class.
 
 
 ### Creating a class that extends another class
 
 ``` js
-var Bar = Clazz.create(
+var Bar = Clazzy.create(
 {
 	extend : Foo,
 
@@ -81,10 +76,10 @@ var bar = new Bar();
 
 ### Creating a class that includes another class
 
-Clazz.js provides a method of code reuse called includes. Behaving similarly to Ruby's mixins and PHP's traits, they enable a developer to reuse sets of methods freely in several independent classes living in different class hierarchies.
+Clazzy provides a method of code reuse called includes. Behaving similarly to Ruby's mixins and PHP's traits, they enable a developer to reuse sets of methods freely in several independent classes living in different class hierarchies.
 
 ``` js
-var Baz = Clazz.Create(
+var Baz = Clazzy.Create(
 {
 	include : [Foo]
 });
@@ -103,10 +98,10 @@ Some things to take note with includes:
 
 ### Node
 
-Clazz.js is available through the Node package manager(npm), so you install like so:
+Clazzy is available through the Node package manager(npm), so you install like so:
 
 ``` sh
-npm install class
+npm install clazzy
 ```
 
 and bring into your code like so:

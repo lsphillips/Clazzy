@@ -1,23 +1,30 @@
 {
-    "name" : "Clazz.js",
-
-    "description" : "A cross platform JavaScript library that provides a classical interface to a prototype system.",
-    
-    "keywords" : ["clazz", "class", "prototype", "inheritance"],
-    
-    "scripts" :
-    {
-        "test" : "grunt nodeunit"
-    },
-
-    "devDependencies" :
-    {
-        "grunt"                  : "0.4.2",
-        "grunt-contrib-clean"    : "0.5.0",
-        "grunt-contrib-nodeunit" : "0.3.3",
-        "grunt-contrib-uglify"   : "0.4.0",
-        "grunt-contrib-jshint"   : "0.10.0"
-    },
-
-    "license" : "MIT"
+  "name": "clazzy",
+  "version": "0.0.0",
+  "description": "A cross platform JavaScript library that provides a classical interface to a prototype system.",
+  "main": "src/Clazz.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt": "^0.4.2",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-nodeunit": "^0.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lsphillips/clazz.git"
+  },
+  "author": "Luke Phillips <lukephil92@gmail.com> (https://github.com/lsphillips)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lsphillips/clazz/issues"
+  },
+  "homepage": "https://github.com/lsphillips/clazz"
 }

@@ -33,7 +33,7 @@ module.exports = function (grunt)
                 reporter : 'verbose'
             },
 
-            all : ['test/Clazz.Test.js']
+            all : ['test/Clazzy.js']
         },
 
 
@@ -44,8 +44,8 @@ module.exports = function (grunt)
         {
             build :
             {
-                src  : 'src/Clazz.js',
-                dest : 'dist/Clazz.js'
+                src  : 'src/Clazzy.js',
+                dest : 'dist/Clazzy.js'
             },
 
             options : { report : 'gzip' }
@@ -62,7 +62,7 @@ module.exports = function (grunt)
                 jshintrc : '.jshintrc'
             },
             
-            src : ['src/Clazz.js', 'test/Clazz.Test.js']
+            src : ['src/Clazzy.js', 'test/Clazzy.js']
         }
     });
     
