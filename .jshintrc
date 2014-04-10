@@ -1,0 +1,63 @@
+{
+    // Globals
+    // --------------------------------------------------------------
+
+    "globals" :
+    {
+        "module"  : false,
+        "define"  : false,
+        "require" : false
+    },
+
+    // Enforcing Options
+    // --------------------------------------------------------------
+
+    "bitwise"       : false,    // Allow bitwise operators.
+    "camelcase"     : true,     // Require all variable names to use camel case style.
+    "curly"         : true,     // Require curly braces for every new block or scope.
+    "eqeqeq"        : true,     // Require the use of `===` and `!==`.
+    "forin"         : true,     // Require `for in` loops to filter object items with `hasOwnPrototype`.
+    "freeze"        : true,     // Prohibit extending the prototypes of native objects.
+    "immed"         : true,     // Require immediate invocations to be wrapped in parentheses.
+    "latedef"       : true,     // Prohibit variable use before definition.
+    "newcap"        : true,     // Require capitalization of all constructor functions.
+    "noarg"         : true,     // Prohibit use of `arguments.caller` and `arguments.callee`.
+    "noempty"       : false,    // Allow use of empty blocks.
+    "nonew"         : true,     // Prohibit use of constructors for side-effects.
+    "plusplus"      : false,    // Allow use of `++` & `--`.
+    "regexp"        : false,    // Allow `.` and `[^...]` in regular expressions.
+    "undef"         : true,     // Require all non-global variables to be declared before they are used.
+    "unused"        : true,     // Allow defined variables to be unused.
+    "strict"        : false,    // Require `use strict` pragma in every file.
+    "trailing"      : true,     // Prohibit trailing whitespaces.
+    "quotmark"      : "single", // Require the use of single quotes.
+    
+    // Relaxing Options
+    // --------------------------------------------------------------
+
+    "asi"           : false,    // Prohibit Automatic Semicolon Insertion (ASI).
+    "boss"          : false,    // Prohibit assignments inside `if`, `for` & `while`. Usually conditions & loops are for comparison, not assignments.
+    "debug"         : false,    // Prohibit debugger statements.
+    "eqnull"        : false,    // Prohibit `null` equality checks using the `==` operator.
+    "esnext"        : false,    // Prohibit ES6 specific syntax, such as `let` and `const`.
+    "evil"          : false,    // Prohibit use of `eval`.
+    "expr"          : false,    // Prohibit expression statements as programs.
+    "funcscope"     : false,    // Prohibit declarations of variables inside of control structures while accessing them later from the outside.
+    "globalstrict"  : false,    // Prohibit `use strict` in the global scope.
+    "iterator"      : false,    // Prohibit the use of the `__iterator__` property.
+    "lastsemic"     : false,    // Prohibit missing semicolons, even for the last statement in a one-line block.
+    "laxbreak"      : false,    // Prohibit unsafe line breaks.
+    "laxcomma"      : false,    // Prohibit comma-first coding style.
+    "loopfunc"      : false,    // Prohibit functions to be defined within loops.
+    "multistr"      : false,    // Prohibit multi-line strings.
+    "proto"         : false,    // Prohibit the use of the `__proto__` property.
+    "scripturl"     : false,    // Prohibit script-targeted URLs.
+    "smarttabs"     : false,    // Prohibit mixed tabs and spaces when the latter are used for alignmnent only.
+    "shadow"        : false,    // Prohibit variable shadowing.
+    "sub"           : true,     // Tolerate all forms of subscript notation besides dot notation e.g. `dict['key']` instead of `dict.key`.
+    "supernew"      : false,    // Prohibit wierd constructions.
+    "validthis"     : true      // Tolerate strict violations when the code is running in strict mode and you use `this` in a non-constructor function.
+
+
+    // Documention: http://www.jshint.com/docs/options/
+}
