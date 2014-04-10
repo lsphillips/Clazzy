@@ -5,7 +5,7 @@ module.exports = (function ()
 	// Subject
 	// --------------------------------------------------------------
 	
-	var Clazz = require('../src/Clazz');
+	var Clazzy = require('../src/Clazzy');
 	
 	// Tests
 	// --------------------------------------------------------------
@@ -15,7 +15,7 @@ module.exports = (function ()
 		'test creating a class with no definition' : function (test)
 		{
 			// Act
-			var Foo = Clazz.create(
+			var Foo = Clazzy.create(
 			{
 			});
 			
@@ -35,7 +35,7 @@ module.exports = (function ()
 		'test creating a class with a constructor using the "initialize" definition' : function (test)
 		{
 			// Act
-			var Foo = Clazz.create(
+			var Foo = Clazzy.create(
 			{
 				initialize : function (foo)
 				{
@@ -60,7 +60,7 @@ module.exports = (function ()
 		'test creating a class with instance members' : function (test)
 		{
 			// Act
-			var Foo = Clazz.create(
+			var Foo = Clazzy.create(
 			{
 				bar : function ()
 				{
@@ -77,7 +77,7 @@ module.exports = (function ()
 		'test creating a class with class members using the "static" definition' : function (test)
 		{
 			// Act
-			var Foo = Clazz.create(
+			var Foo = Clazzy.create(
 			{
 				static :
 				{
@@ -101,7 +101,7 @@ module.exports = (function ()
 		'test creating a class that extends a class using the "extend" definition' : function (test)
 		{
 			// Act
-			var Foo = Clazz.create(
+			var Foo = Clazzy.create(
 			{
 				initialize : function ()
 				{
@@ -131,7 +131,7 @@ module.exports = (function ()
 				}
 			});
 
-			var Bar = Clazz.create(
+			var Bar = Clazzy.create(
 			{
 				extend : Foo,
 
@@ -165,7 +165,7 @@ module.exports = (function ()
 		'test creating a class that includes a class using the "include" definition' : function (test)
 		{
 			// Act
-			var Foo = Clazz.create(
+			var Foo = Clazzy.create(
 			{
 				initialize : function ()
 				{
@@ -190,12 +190,12 @@ module.exports = (function ()
 				}
 			});
 
-			var Bar = Clazz.create(
+			var Bar = Clazzy.create(
 			{
 				include : [Foo]
 			});
 
-			var Baz = Clazz.create(
+			var Baz = Clazzy.create(
 			{
 				bar : function ()
 				{
@@ -203,7 +203,7 @@ module.exports = (function ()
 				}
 			});
 
-			var Qux = Clazz.create(
+			var Qux = Clazzy.create(
 			{
 				include : [Foo, Baz]
 			});
@@ -229,7 +229,7 @@ module.exports = (function ()
 		'test the super method' : function (test)
 		{
 			// Act
-			var Foo = Clazz.create(
+			var Foo = Clazzy.create(
 			{
 				bar : function ()
 				{
@@ -237,7 +237,7 @@ module.exports = (function ()
 				}
 			});
 
-			var Bar = Clazz.create(
+			var Bar = Clazzy.create(
 			{
 				initialize : function ()
 				{
@@ -262,7 +262,7 @@ module.exports = (function ()
 				}
 			});
 
-			var Baz = Clazz.create(
+			var Baz = Clazzy.create(
 			{
 				extend : Bar,
 
@@ -306,7 +306,7 @@ module.exports = (function ()
 
 			test.throws(function ()
 			{
-				Clazz.Create(
+				Clazzy.Create(
 				{
 					super : function ()
 					{
@@ -336,7 +336,7 @@ module.exports = (function ()
 		'test order of precedence for inherited, included and current methods' : function (test)
 		{
 			// Act
-			var Foo = Clazz.create(
+			var Foo = Clazzy.create(
 			{
 				foo : function ()
 				{
@@ -344,7 +344,7 @@ module.exports = (function ()
 				}
 			});
 
-			var Bar = Clazz.create(
+			var Bar = Clazzy.create(
 			{
 				foo : function ()
 				{
@@ -352,7 +352,7 @@ module.exports = (function ()
 				}
 			});
 
-			var Baz = Clazz.create(
+			var Baz = Clazzy.create(
 			{
 				include : [Foo],
 
@@ -361,7 +361,7 @@ module.exports = (function ()
 				extend : Bar
 			});
 
-			var Qux = Clazz.create(
+			var Qux = Clazzy.create(
 			{
 				include : Foo,
 

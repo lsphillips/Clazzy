@@ -1,12 +1,12 @@
-//   _____ _                 _     
-//  / ____| |               (_)    
-// | |    | | __ _ ________  _ ___ 
-// | |    | |/ _` |_  /_  / | / __|
-// | |____| | (_| |/ / / / _| \__ \
-//  \_____|_|\__,_/___/___(_) |___/
-//                         _/ |    
-// ====================== |__/  ===    
-//                 By Luke Phillips
+//   _____ _                     
+//  / ____| |                    
+// | |    | | __ _ _________   _ 
+// | |    | |/ _` |_  /_  / | | |
+// | |____| | (_| |/ / / /| |_| |
+//  \_____|_|\__,_/___/___|\__, |
+//                          __/ |
+// ======================= |___/    
+//               By Luke Phillips
 
 (function (name, factory, context)
 {
@@ -23,7 +23,7 @@
         context[name] = factory.call(context);
     }
     
-}) ('Clazz', function ()
+}) ('Clazzy', function ()
 {
     'use strict';
     
@@ -210,7 +210,7 @@
 	
     // --------------------------------------------------------------
 	
-	var Clazz = 
+	var Clazzy = 
 	{
 		create : function (definition)
 		{
@@ -347,12 +347,12 @@
 		
 		noConflict : (function (context)
 		{
-			var _Clazz = context.Clazz;
+			var _Clazzy = context.Clazzy;
 			
 			
 			return function ()
 			{
-				context.Clazz = _Clazz;
+				context.Clazzy = _Clazzy;
 				
 				
 				return this;
@@ -363,6 +363,6 @@
 	
 	// --------------------------------------------------------------
 	
-    return Clazz;
+    return Clazzy;
 	
 }, this);
