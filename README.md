@@ -41,7 +41,7 @@ var Foo = Clazzy.create(
 var foo = new Foo();
 ```
 
-**Note:** All instance properties of your class should be defined within the constructor, anything in the definition treated as an instance member is applied to the class prototype, meaning it will be shared by all instances of the class.
+**Note:** All instance properties of your class should be defined within the constructor.
 
 
 ### Creating a class that extends another class
@@ -98,7 +98,7 @@ Some things to take note with includes:
 
 ### Node
 
-Clazzy is available through the Node package manager(npm), so you install like so:
+Clazzy is available through the Node Package Manager, so you can install like so:
 
 ``` sh
 npm install clazzy
@@ -107,26 +107,26 @@ npm install clazzy
 and bring into your code like so:
 
 ``` js
-var Clazz = require('clazz');
+var Clazzy = require('clazzy');
 ```
 
 ### Browser
 
-To use Clazz.js in a browser envrionment it's as bringing it in using a script tag like so:
+To use Clazzy in a browser envrionment, just use a script tag like so:
 
 ``` html
-<script type="text/javascript" src="path/to/Clazz.js"></script>
+<script type="text/javascript" src="path/to/Clazzy.js"></script>
 ```
 
-To remove from the global namespace, you can use Clazz.noConflict(), like so:
+To remove Clazzy from the global namespace, you can use `Clazzy.noConflict()`, like so:
 
 ``` js
-Namespace.Clazz = Clazz.noConflict();
+Namespace.Clazzy = Clazzy.noConflict();
 ```
 
 ## Development
 
-Grunt is used to handle the build process for Clazz.js. To perform a full build, use the `build` task:
+Grunt is used to handle the build process for Clazzy. To perform a full build, use the `build` task:
 
 ``` sh
 grunt build
@@ -146,4 +146,4 @@ grunt test
 
 ## License
 
-Clazz.js is released under the MIT License
+Clazzy is released under the MIT License
