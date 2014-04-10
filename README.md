@@ -41,7 +41,7 @@ var Foo = Clazzy.create(
 var foo = new Foo();
 ```
 
-*Note: All instance properties of your class should be defined within the constructor, anything in the definition treated as an instance member is applied to the class prototype, meaning it will be shared by all instances of the class.
+**Note:** All instance properties of your class should be defined within the constructor, anything in the definition treated as an instance member is applied to the class prototype, meaning it will be shared by all instances of the class.
 
 
 ### Creating a class that extends another class
