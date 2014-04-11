@@ -10,35 +10,48 @@ A cross platform JavaScript library that provides a classical interface, using a
 ``` js
 var Foo = Clazzy.create(
 {
-	initialize : function ()
-	{
-		// Constructor
-	},
-
+	// Constructor
 	// --------------------------------
 
-	baz : function ()
+	initialize : function ()
 	{
-		// Instance method
+		this.foo = 'foo';
 	},
 
-	qux : function ()
+	// Instance methods
+	// --------------------------------
+
+	bar : function ()
 	{
-		// Another instance method
+		return 'bar';
+	},
+
+	baz : function (baz)
+	{
+		return baz;
 	},
 	
+	// Static methods
 	// --------------------------------
 
 	static : 
 	{
-		corge : function ()
+		qux : function ()
 		{
-			// Static method
+			return 'qux';
 		}
 	}
 });
 
 var foo = new Foo();
+
+foo.foo; // 'foo'
+
+foo.bar(); // 'bar'
+
+foo.baz('baz'); // 'baz' 
+
+Foo.qux(); // 'qux'
 ```
 
 **Note:** All instance properties of your class should be defined within the constructor.
@@ -56,6 +69,9 @@ var Bar = Clazzy.create(
 	initialize : function ()
 	{
 		this.super();
+	 // -------------
+
+	 	this.corge = 'corge';
 	},
 
 	// --------------------------------
@@ -65,13 +81,23 @@ var Bar = Clazzy.create(
 		return 'bar';
 	},
 
-	qux : function ()
+	baz : function (baz)
 	{
-		return 'super ' + this.super();
+		return 'super ' + this.super(baz);
 	}
 });
 
 var bar = new Bar();
+
+bar.foo; // 'foo'
+
+bar.corge; // 'corge'
+
+bar.bar(); // 'bar'
+
+bar.baz('qux'); // 'super qux'
+
+Bar.qux(); // throws an error
 ```
 
 ### Creating a class that includes another class
@@ -79,20 +105,30 @@ var bar = new Bar();
 Clazzy provides a method of code reuse called includes. Behaving similarly to Ruby's mixins and PHP's traits, they enable a developer to reuse sets of methods freely in several independent classes living in different class hierarchies.
 
 ``` js
-var Baz = Clazzy.Create(
+var Baz = Clazzy.create(
 {
-	include : [Foo]
+	include : [Foo],
+
+	// --------------------------------
+
+	moo : function ()
+	{
+		return 'moo';
+	}
 });
 
 var baz = new Baz();
+
+baz.foo; // 'foo'
+
+baz.bar(); // 'bar'
+
+baz.baz('baz'); // 'baz'
+
+baz.moo(); // 'moo'
+
+Baz.qux(); // throws an error
 ```
-
-Some things to take note with includes:
-
-* If an include has a constructor, that constructor will be executed when the including class is being instantiated.
-* The super method will not refer to the base of the class it's included in, it will refer to the hierarchy the include class may have.
-* The precedence order is: an inherited member from a base class is overriden by an included member and an included member is overriden by a member from the current class.
-
 
 ## Getting started
 
@@ -146,4 +182,4 @@ grunt test
 
 ## License
 
-Clazzy is released under the MIT License
+Clazzy is released under the MIT License.

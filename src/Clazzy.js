@@ -339,7 +339,7 @@
 			
 			Class.prototype.constructor = Class;
 			
-			
+
 			return Class;
 		},
 
