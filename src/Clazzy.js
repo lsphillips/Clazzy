@@ -10,70 +10,70 @@
 
 (function (name, factory, context)
 {
-    if (typeof module !== 'undefined' && module.exports)
-    {
-        module.exports = factory.call(context);
-    }
-    else if (typeof define === 'function' && define.amd)
-    {
-        define(name, [], factory);
-    }
-    else
-    {
-        context[name] = factory.call(context);
-    }
-    
+	if (typeof module !== 'undefined' && module.exports)
+	{
+		module.exports = factory.call(context);
+	}
+	else if (typeof define === 'function' && define.amd)
+	{
+		define(name, [], factory);
+	}
+	else
+	{
+		context[name] = factory.call(context);
+	}
+	
 }) ('Clazzy', function ()
 {
-    'use strict';
-    
-    // We need to pass array-like objects, such as the arguments 
-    // object, to Function.apply, however not all implementations yet 
-    // allow array-like objects to be passed to it. So we need to 
-    // convert them to an array, this can be done using Array.slice.
-    // 
-    // A further problem, is you can't slice array-like objects 
-    // directly, like so:
-    // 
-    //    arguments.slice(0);
-    // 
-    // As they aren't arrays, however the method will still work if 
-    // applied like this:
-    // 
-    //    Array.prototype.slice.call(arguments, 0);
-    var slice = Array.prototype.slice;
-
-    // The Object.hasOwnProperty method is not protected, which
-    // allows an object to override it, making using the method
-    // like this:
-    // 
-    //    object.hasOwnProperty('property');
-    //    
-    // Very unreliable, so we need to do this instead:
-    // 
-    //    Object.prototype.hasOwnProperty(object, 'property');
-    var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-    // Keywords
-    // --------------------------------------------------------------
-    
-    var SUPER       = 'super';
-    var INITIALIZE  = 'initialize';
-    var EXTEND      = 'extend';
-    var STATIC      = 'static';
-    var INCLUDE     = 'include';
-    var FUNCTION    = 'function';
-    var CONSTRUCTOR = 'constructor';
+	'use strict';
 	
-    // Helpers
-    // --------------------------------------------------------------
+	// We need to pass array-like objects, such as the arguments 
+	// object, to Function.apply, however not all implementations yet 
+	// allow array-like objects to be passed to it. So we need to 
+	// convert them to an array, this can be done using Array.slice.
+	// 
+	// A further problem, is you can't slice array-like objects 
+	// directly, like so:
+	// 
+	//    arguments.slice(0);
+	// 
+	// As they aren't arrays, however the method will still work if 
+	// applied like this:
+	// 
+	//    Array.prototype.slice.call(arguments, 0);
+	var slice = Array.prototype.slice;
+
+	// The Object.hasOwnProperty method is not protected, which
+	// allows an object to override it, making using the method
+	// like this:
+	// 
+	//    object.hasOwnProperty('property');
+	//    
+	// Very unreliable, so we need to do this instead:
+	// 
+	//    Object.prototype.hasOwnProperty(object, 'property');
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+	// Keywords
+	// --------------------------------------------------------------
 	
-    var createAnUnconstructedInstanceOfClass = (function ()
-    {
-        if (Object.create === undefined)
-        {
-            return function (clazz)
-            {
+	var SUPER       = 'super';
+	var INITIALIZE  = 'initialize';
+	var EXTEND      = 'extend';
+	var STATIC      = 'static';
+	var INCLUDE     = 'include';
+	var FUNCTION    = 'function';
+	var CONSTRUCTOR = 'constructor';
+	
+	// Helpers
+	// --------------------------------------------------------------
+	
+	var createAnUnconstructedInstanceOfClass = (function ()
+	{
+		if (Object.create === undefined)
+		{
+			return function (clazz)
+			{
 				function Surrogate ()
 				{
 					// A surrogate function that does nothing. It
@@ -81,39 +81,39 @@
 					// prototype without running it's constructor.
 				}
 				
-                Surrogate.prototype             = clazz.prototype;
-                Surrogate.prototype.constructor = clazz;
-                
-                
-                return new Surrogate();
-            };
-        }
-        
-        
-        return function (clazz)
-        {
-            return Object.create(clazz.prototype);
-        };
+				Surrogate.prototype             = clazz.prototype;
+				Surrogate.prototype.constructor = clazz;
+				
+				
+				return new Surrogate();
+			};
+		}
+		
+		
+		return function (clazz)
+		{
+			return Object.create(clazz.prototype);
+		};
 
-    }) ();
+	}) ();
 
-    var copyProperty = (function ()
-    {
-        // IE8 implements Object.defineProperty, however it only
-        // works on DOM elements. So IE8 must also use a fall-back
-        // method, requiring us to check for the implementation of
-        // Object.defineProperties instead.
-        if (Object.defineProperties === undefined)
-        {
-            return function (source, target, property)
-            {
-                target[property] = source[property];
-            };
-        }
-        
-        
-        return function (source, target, property, deep)
-        {
+	var copyProperty = (function ()
+	{
+		// IE8 implements Object.defineProperty, however it only
+		// works on DOM elements. So IE8 must also use a fall-back
+		// method, requiring us to check for the implementation of
+		// Object.defineProperties instead.
+		if (Object.defineProperties === undefined)
+		{
+			return function (source, target, property)
+			{
+				target[property] = source[property];
+			};
+		}
+		
+		
+		return function (source, target, property, deep)
+		{
 			var descriptor = getPropertyDescriptor(source, property, deep);
 			
 			
@@ -128,22 +128,22 @@
 				// returned by the getter, rather than it's definition.
 				Object.defineProperty(target, property, descriptor);
 			}
-        };
+		};
 		
-    }) ();
+	}) ();
 
-    var copyProperties = function (source, target, deep)
-    {
-    	for (var property in source)
-    	{
-    		if ( deep || hasOwnProperty.call(source, property) )
-    		{
-    			copyProperty(source, target, property, deep);
-    		}
-    	}
-    };
+	var copyProperties = function (source, target, deep)
+	{
+		for (var property in source)
+		{
+			if ( deep || hasOwnProperty.call(source, property) )
+			{
+				copyProperty(source, target, property, deep);
+			}
+		}
+	};
 
-    var getPropertyDescriptor = function (object, property, deep)
+	var getPropertyDescriptor = function (object, property, deep)
 	{
 		var descriptor = Object.getOwnPropertyDescriptor(object, property);
 		
@@ -174,43 +174,43 @@
 		return descriptor;
 	};
 
-    // --------------------------------------------------------------
-    
-    var error = function ()
-    {
-    	throw new Error('Error calling super, this method does not override a parent method');
-    };
+	// --------------------------------------------------------------
+	
+	var error = function ()
+	{
+		throw new Error('Error calling super, this method does not override a parent method');
+	};
 
-    var wrap = function (method, signature, base)
-    {
-    	return function ()
-    	{
-    		var tmp = this[SUPER];
+	var wrap = function (method, signature, base)
+	{
+		return function ()
+		{
+			var tmp = this[SUPER];
 			
 			
-    		this[SUPER] = base.prototype[signature] || error;
+			this[SUPER] = base.prototype[signature] || error;
 			
 			
-    		var result;
+			var result;
 			
-    		try // to execute the method.
-    		{
-        		result = method.apply(
-        			this, slice.call(arguments)
-        		);
-      		}
-      		finally
-      		{
-      			this[SUPER] = tmp;
-      		}
+			try // to execute the method.
+			{
+				result = method.apply(
+					this, slice.call(arguments)
+				);
+			}
+			finally
+			{
+				this[SUPER] = tmp;
+			}
 			
-      		return result;
-    	};
-    };
+			return result;
+		};
+	};
 
-    // --------------------------------------------------------------
+	// --------------------------------------------------------------
 
-    var Clazzy = 
+	var Clazzy = 
 	{
 		create : function (definition)
 		{
@@ -363,6 +363,6 @@
 
 	// --------------------------------------------------------------
 	
-    return Clazzy;
+	return Clazzy;
 	
 }, this);
