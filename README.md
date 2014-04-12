@@ -136,8 +136,8 @@ Baz.qux(); // throws an error
 *Note:*
 
 * Static methods are not included.
-* The super method, when invoked from an included method, it does not reference the hierarchy of the class it's included in.
-* An inherited member from a base class is overridden by an included member, which in turn are both overridden by a member from the current class.
+* The super method, when invoked from an included method, does not reference the hierarchy of the class it's included in.
+* The precedence order is that an inherited member from a base class is overridden by an included member, which in turn are both overridden by a member from the current class.
 
 ## Getting started
 
