@@ -142,8 +142,8 @@
     		}
     	}
     };
-	
-	var getPropertyDescriptor = function (object, property, deep)
+
+    var getPropertyDescriptor = function (object, property, deep)
 	{
 		var descriptor = Object.getOwnPropertyDescriptor(object, property);
 		
@@ -173,7 +173,7 @@
 		
 		return descriptor;
 	};
-	
+
     // --------------------------------------------------------------
     
     var error = function ()
@@ -207,10 +207,10 @@
       		return result;
     	};
     };
-	
+
     // --------------------------------------------------------------
-	
-	var Clazzy = 
+
+    var Clazzy = 
 	{
 		create : function (definition)
 		{
@@ -360,7 +360,7 @@
 
 		}) (this)
 	};
-	
+
 	// --------------------------------------------------------------
 	
     return Clazzy;
