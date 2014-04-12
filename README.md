@@ -1,7 +1,6 @@
 ## Clazzy
 
-A cross platform JavaScript library that provides a classical interface, using a DSL inspired by Ruby, to a prototype system.
-
+A cross platform JavaScript library that provides a classical interface, using a simple DSL inspired by Ruby, to a prototype system.
 
 ## Usage
 
@@ -54,8 +53,7 @@ foo.baz('baz'); // 'baz'
 Foo.qux(); // 'qux'
 ```
 
-**Note:** All instance properties of your class should be defined within the constructor.
-
+*Note:* Instance properties can be defined in the definition, however their inital value should be set in the constructor.
 
 ### Creating a class that extends another class
 
@@ -100,6 +98,11 @@ bar.baz('qux'); // 'super qux'
 Bar.qux(); // throws an error
 ```
 
+*Note:*
+
+* Static methods are not inherited.
+* If a method overrides one of its base class methods, you can invoke the overridden method through the use of the `super` method.
+
 ### Creating a class that includes another class
 
 Clazzy provides a method of code reuse called includes. Behaving similarly to Ruby's mixins and PHP's traits, they enable a developer to reuse sets of methods freely in several independent classes living in different class hierarchies.
@@ -129,6 +132,12 @@ baz.moo(); // 'moo'
 
 Baz.qux(); // throws an error
 ```
+
+*Note:*
+
+* Static methods are not included.
+* The super method, when invoked from an included method, it does not reference the hierarchy of the class it's included in.
+* An inherited member from a base class is overridden by an included member, which in turn are both overridden by a member from the current class.
 
 ## Getting started
 

@@ -66,7 +66,7 @@
     var CONSTRUCTOR = 'constructor';
 	
     // Helpers
-	// --------------------------------------------------------------
+    // --------------------------------------------------------------
 	
     var createAnUnconstructedInstanceOfClass = (function ()
     {
@@ -193,7 +193,7 @@
 			
     		var result;
 			
-    		try // To execute the method.
+    		try // to execute the method.
     		{
         		result = method.apply(
         			this, slice.call(arguments)
