@@ -1,7 +1,7 @@
 {
   "name" : "clazzy",
 
-  "version" : "0.0.0",
+  "version" : "0.0.1",
 
   "description" : "A cross platform JavaScript library that provides a classical interface to a prototype system.",
 
