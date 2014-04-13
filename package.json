@@ -1,9 +1,9 @@
 {
   "name" : "clazzy",
 
-  "version" : "0.0.1",
+  "version" : "0.1.0",
 
-  "description" : "A cross platform JavaScript library that provides a classical interface to a prototype system.",
+  "description" : "A cross platform JavaScript library that provides a classical interface to prototype inheritance using a simple DSL inspired by Ruby.",
 
   "author" :
   {
@@ -14,11 +14,22 @@
     "url" : "https://github.com/lsphillips"
   },
 
-  "homepage" : "https://github.com/lsphillips/clazz",
+  "keywords" :
+  [
+    "class",
+    "prototype",
+    "extend",
+    "base",
+    "include",
+    "trait", 
+    "mixin"
+  ],
+
+  "homepage" : "https://github.com/lsphillips/Clazzy",
 
   "bugs" :
   {
-    "url" : "https://github.com/lsphillips/clazz/issues"
+    "url" : "https://github.com/lsphillips/Clazzy/issues"
   },
 
   "directories" :
@@ -46,7 +57,7 @@
   "repository" :
   {
     "type" : "git",
-    "url" : "https://github.com/lsphillips/clazz.git"
+    "url" : "https://github.com/lsphillips/Clazzy.git"
   },
 
   "license" : "MIT"
