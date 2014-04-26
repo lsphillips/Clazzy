@@ -1,6 +1,6 @@
 ## Clazzy
 
-A cross platform JavaScript library that provides a classical interface to prototype inheritance using a simple DSL inspired by Ruby.
+A cross platform JavaScript library that provides a classical interface to prototypal inheritance.
 
 ## Usage
 

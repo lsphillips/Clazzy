@@ -26,13 +26,13 @@ module.exports = (function ()
 			
 			test.strictEqual(Foo.prototype.constructor, Foo, 'each instance of a class has a constructor property referencing said class');
 			
-			test.ok(foo instanceof Foo, 'the "instanceof" operator asserts an instance of the class is an instance of said class');
+			test.ok(foo instanceof Foo, 'the `instanceof` operator asserts an instance of the class is an instance of said class');
 
 			// Done
 			test.done();
 		},
 
-		'test creating a class with a constructor using the "initialize" definition' : function (test)
+		'test creating a class with a constructor using the `initialize` definition' : function (test)
 		{
 			// Act
 			var Foo = Clazzy.create(
@@ -47,7 +47,7 @@ module.exports = (function ()
 			var foo = new Foo('foo');
 
 			// Assert
-			test.equal(foo.bar, 'foo', 'the constructor is executed when the class is instantiated using the "new" operator');
+			test.equal(foo.bar, 'foo', 'the constructor is executed when the class is instantiated using the `new` operator');
 
 			test.equal(foo.baz, 'foo', 'arguments passed to the class at instantiation are passed on to the constructor');
 
@@ -68,13 +68,13 @@ module.exports = (function ()
 			});
 
 			// Assert
-			test.equal(typeof Foo.prototype.bar, 'function', 'any definition properties which are not: "extend", "include", "static", "initialize" or "super" are treated as instance members');
+			test.equal(typeof Foo.prototype.bar, 'function', 'any definition properties which are not: `extend`, `include`, `static`, `initialize` or `super` are treated as instance members');
 
 			// Done
 			test.done();
 		},
 
-		'test creating a class with class members using the "static" definition' : function (test)
+		'test creating a class with class members using the `static` definition' : function (test)
 		{
 			// Act
 			var Foo = Clazzy.create(
@@ -98,7 +98,7 @@ module.exports = (function ()
 			test.done();
 		},
 
-		'test creating a class that extends a class using the "extend" definition' : function (test)
+		'test creating a class that extends a class using the `extend` definition' : function (test)
 		{
 			// Act
 			var Foo = Clazzy.create(
@@ -146,9 +146,9 @@ module.exports = (function ()
 			var bar = new Bar();
 
 			// Assert
-			test.ok(bar instanceof Bar, 'the "instanceof" operator still asserts an instance of the class is an instance of said class');
+			test.ok(bar instanceof Bar, 'the `instanceof` operator still asserts an instance of the class is an instance of said class');
 
-			test.ok(bar instanceof Foo, 'the "instanceof" operator will also assert an instance of the class is an instance of the base of said class');
+			test.ok(bar instanceof Foo, 'the `instanceof` operator will also assert an instance of the class is an instance of the base of said class');
 			
 			test.equal(typeof Bar.prototype.bar, 'function', 'instance members from the base class are inherited by the extending class');
 			
@@ -156,13 +156,13 @@ module.exports = (function ()
 
 			test.equal(bar.baz(), 'bar', 'instance members from the extending class override instance members from the base class');
 
-			test.equal(bar.foo, 'foo', 'if the extending class has not defined a constructor, the base constructor is executed called instead when instantiated using the "new" operator');
+			test.equal(bar.foo, 'foo', 'if the extending class has not defined a constructor, the base constructor is executed called instead when instantiated using the `new` operator');
 
 			// Done
 			test.done();
 		},
 
-		'test creating a class that includes a class using the "include" definition' : function (test)
+		'test creating a class that includes a class using the `include` definition' : function (test)
 		{
 			// Act
 			var Foo = Clazzy.create(
@@ -218,7 +218,7 @@ module.exports = (function ()
 
 			test.equal(typeof Bar.baz, 'undefined', 'static members from the included class do not become instance members of the including class');
 
-			test.equal(bar.foo, 'foo', 'the constructor of the included class is executed when the including class is instantiated using the "new" operator');
+			test.equal(bar.foo, 'foo', 'the constructor of the included class is executed when the including class is instantiated using the `new` operator');
 
 			test.equal(qux.bar(), 'baz', 'class includes are included in a FIFO (first in, first out) fashion');
 

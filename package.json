@@ -1,9 +1,9 @@
 {
   "name" : "clazzy",
 
-  "version" : "0.1.0",
+  "version" : "0.1.1",
 
-  "description" : "A cross platform JavaScript library that provides a classical interface to prototype inheritance using a simple DSL inspired by Ruby.",
+  "description" : "A cross platform JavaScript library that provides a classical interface to prototypal inheritance.",
 
   "author" :
   {

@@ -28,9 +28,9 @@
 	'use strict';
 	
 	// We need to pass array-like objects, such as the arguments 
-	// object, to Function.apply, however not all implementations yet 
+	// object, to `Function#apply`, however not all implementations yet 
 	// allow array-like objects to be passed to it. So we need to 
-	// convert them to an array, this can be done using Array.slice.
+	// convert them to an array, this can be done using `Array#slice`.
 	// 
 	// A further problem, is you can't slice array-like objects 
 	// directly, like so:
@@ -43,7 +43,7 @@
 	//    Array.prototype.slice.call(arguments, 0);
 	var slice = Array.prototype.slice;
 
-	// The Object.hasOwnProperty method is not protected, which
+	// The `Object.hasOwnProperty` method is not protected, which
 	// allows an object to override it, making using the method
 	// like this:
 	// 
@@ -81,8 +81,8 @@
 					// prototype without running it's constructor.
 				}
 				
-				Surrogate.prototype             = clazz.prototype;
-				Surrogate.prototype.constructor = clazz;
+				Surrogate.prototype              = clazz.prototype;
+				Surrogate.prototype[CONSTRUCTOR] = clazz;
 				
 				
 				return new Surrogate();
@@ -99,10 +99,10 @@
 
 	var copyProperty = (function ()
 	{
-		// IE8 implements Object.defineProperty, however it only
+		// IE8 implements `Object.defineProperty`, however it only
 		// works on DOM elements. So IE8 must also use a fall-back
 		// method, requiring us to check for the implementation of
-		// Object.defineProperties instead.
+		// `Object.defineProperties` instead.
 		if (Object.defineProperties === undefined)
 		{
 			return function (source, target, property)
@@ -121,10 +121,10 @@
 			{
 				// Normally this would suffice: 
 				// 
-				//   target[signature] = methods[signature];
+				//   target[property] = methods[property];
 				// 
 				// However for ECMA5 getters, this wouldn't work, as it
-				// would be invoked, hence assigning the value being 
+				// would be invoked, assigning the value being 
 				// returned by the getter, rather than it's definition.
 				Object.defineProperty(target, property, descriptor);
 			}
@@ -178,7 +178,7 @@
 	
 	var error = function ()
 	{
-		throw new Error('Error calling super, this method does not override a parent method');
+		throw new Error('[Clazzy] Cannot call super, this method does not override a parent method');
 	};
 
 	var wrap = function (method, signature, base)
@@ -219,11 +219,11 @@
 				definition = {};
 			}
 			
+			var initialize, base, includes;
+
 			
 			// Constructor
 			// --------------------------------------------
-			
-			var initialize;
 			
 			function Class ()
 			{
@@ -248,7 +248,7 @@
 			// Extend
 			// --------------------------------------------
 			
-			var base = definition[EXTEND];
+			base = definition[EXTEND];
 			
 			if (base === undefined)
 			{
@@ -267,7 +267,7 @@
 			// Include
 			// --------------------------------------------
 			
-			var includes = definition[INCLUDE];
+			includes = definition[INCLUDE];
 			
 			if (includes !== undefined)
 			{
@@ -317,13 +317,13 @@
 
 						case SUPER :
 
-							throw new Error('Cannot create class, "super" is a reserved method name');
+							throw new Error('[Clazzy] Cannot create class, `super` is a reserved method name');
 						
 						default :
 							
 							if (typeof member === FUNCTION)
 							{
-								// Always wrap the method. Even if a
+								// Always wrap the method, even if a
 								// parent method doesn't exist at the
 								// moment, as a method could later be
 								// injected into the prototye.
@@ -337,7 +337,7 @@
 				}
 			}
 			
-			Class.prototype.constructor = Class;
+			Class.prototype[CONSTRUCTOR] = Class;
 			
 
 			return Class;
