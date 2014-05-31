@@ -348,8 +348,6 @@
 			return Class;
 		},
 		
-		// ----------------------------------------------------------
-		
 		noConflict : (function (context)
 		{
 			var _Clazzy = context.Clazzy;
