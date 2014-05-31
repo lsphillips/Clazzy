@@ -41,7 +41,7 @@
     "eqnull"        : false,    // Prohibit `null` equality checks using the `==` operator.
     "esnext"        : false,    // Prohibit ES6 specific syntax, such as `let` and `const`.
     "evil"          : false,    // Prohibit use of `eval`.
-    "expr"          : false,    // Prohibit expression statements as programs.
+    "expr"          : false,    // Prohibit expression statements where normally you would expect to see assignments or function calls.
     "funcscope"     : false,    // Prohibit declarations of variables inside of control structures while accessing them later from the outside.
     "globalstrict"  : false,    // Prohibit `use strict` in the global scope.
     "iterator"      : false,    // Prohibit the use of the `__iterator__` property.

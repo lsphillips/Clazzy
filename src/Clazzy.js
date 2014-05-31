@@ -176,37 +176,42 @@
 
 	// --------------------------------------------------------------
 	
-	var error = function ()
+	var wrap = (function ()
 	{
-		throw new Error('[Clazzy] Cannot call super, this method does not override a parent method');
-	};
-
-	var wrap = function (method, signature, base)
-	{
-		return function ()
+		function noSuper ()
 		{
-			var tmp = this[SUPER];
-			
-			
-			this[SUPER] = base.prototype[signature] || error;
-			
-			
-			var result;
-			
-			try // to execute the method.
+			throw new Error('[Clazzy] Cannot call super, this method does not override a parent method');
+		}
+		
+		
+		return function (method, signature, base)
+		{
+			return function ()
 			{
-				result = method.apply(
-					this, slice.call(arguments)
-				);
-			}
-			finally
-			{
-				this[SUPER] = tmp;
-			}
-			
-			return result;
+				var tmp = this[SUPER];
+				
+				
+				this[SUPER] = base.prototype[signature] || noSuper;
+				
+				
+				var result;
+				
+				try // to execute the method.
+				{
+					result = method.apply(
+						this, slice.call(arguments)
+					);
+				}
+				finally
+				{
+					this[SUPER] = tmp;
+				}
+				
+				return result;
+			};
 		};
-	};
+
+	}) ();
 
 	// --------------------------------------------------------------
 
@@ -342,7 +347,7 @@
 
 			return Class;
 		},
-
+		
 		// ----------------------------------------------------------
 		
 		noConflict : (function (context)
