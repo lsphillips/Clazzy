@@ -108,8 +108,6 @@ module.exports = (function ()
 					this.foo = 'foo';
 				},
 
-				// ----------------------------------------
-
 				bar : function ()
 				{
 					return 'foo';
@@ -120,8 +118,6 @@ module.exports = (function ()
 					return 'foo';
 				},
 
-				// ----------------------------------------
-				
 				static :
 				{
 					qux : function ()
@@ -135,8 +131,6 @@ module.exports = (function ()
 			{
 				extend : Foo,
 
-				// ----------------------------------------
-				
 				baz : function ()
 				{
 					return 'bar';
@@ -172,14 +166,10 @@ module.exports = (function ()
 					this.foo = 'foo';
 				},
 
-				// ----------------------------------------
-
 				bar : function ()
 				{
 					return 'foo';
 				},
-
-				// ----------------------------------------
 
 				static :
 				{
@@ -244,8 +234,6 @@ module.exports = (function ()
 					this.foo = 'bar';
 				},
 
-				// ----------------------------------------
-
 				bar : function ()
 				{
 					return 'bar';
@@ -264,20 +252,12 @@ module.exports = (function ()
 
 			var Baz = Clazzy.create(
 			{
-				extend : Bar,
-
-				// ----------------------------------------
-
-				include : [Foo],
-
-				// ----------------------------------------
+				extend : Bar, include : [Foo],
 
 				initialize : function ()
 				{
 					this.super();
 				},
-
-				// ----------------------------------------
 
 				baz : function ()
 				{
@@ -354,18 +334,12 @@ module.exports = (function ()
 
 			var Baz = Clazzy.create(
 			{
-				include : [Foo],
-
-				// ----------------------------------------
-				
-				extend : Bar
+				include : [Foo], extend : Bar
 			});
 
 			var Qux = Clazzy.create(
 			{
 				include : Foo,
-
-				// ----------------------------------------
 				
 				foo : function ()
 				{

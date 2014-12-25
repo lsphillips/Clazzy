@@ -1,13 +1,3 @@
-//   _____ _                     
-//  / ____| |                    
-// | |    | | __ _ _________   _ 
-// | |    | |/ _` |_  /_  / | | |
-// | |____| | (_| |/ / / /| |_| |
-//  \_____|_|\__,_/___/___|\__, |
-//                          __/ |
-// ======================= |___/    
-//               By Luke Phillips
-
 (function (name, factory, context)
 {
 	if (typeof module !== 'undefined' && module.exports)
@@ -84,11 +74,9 @@
 				Surrogate.prototype              = clazz.prototype;
 				Surrogate.prototype[CONSTRUCTOR] = clazz;
 				
-				
 				return new Surrogate();
 			};
 		}
-		
 		
 		return function (clazz)
 		{
@@ -111,11 +99,9 @@
 			};
 		}
 		
-		
 		return function (source, target, property, deep)
 		{
 			var descriptor = getPropertyDescriptor(source, property, deep);
-			
 			
 			if (descriptor !== undefined)
 			{
@@ -147,18 +133,15 @@
 	{
 		var descriptor = Object.getOwnPropertyDescriptor(object, property);
 		
-		
 		if (descriptor !== undefined)
 		{
 			return descriptor;
 		}
 		
-		
 		if (deep)
 		{
 			var prototype = object;
 			
-
 			do
 			{
 				prototype = Object.getPrototypeOf(prototype);
@@ -183,16 +166,13 @@
 			throw new Error('[Clazzy] Cannot call super, this method does not override a parent method');
 		}
 		
-		
 		return function (method, signature, base)
 		{
 			return function ()
 			{
 				var tmp = this[SUPER];
 				
-				
 				this[SUPER] = base.prototype[signature] || noSuper;
-				
 				
 				var result;
 				
@@ -226,9 +206,8 @@
 			
 			var initialize, base, includes;
 
-			
 			// Constructor
-			// --------------------------------------------
+			// ------------------------------------------------------
 			
 			function Class ()
 			{
@@ -240,7 +219,6 @@
 					}
 				}
 				
-				
 				if (initialize !== undefined)
 				{
 					initialize.apply(
@@ -249,9 +227,8 @@
 				}
 			}
 			
-			
 			// Extend
-			// --------------------------------------------
+			// ------------------------------------------------------
 			
 			base = definition[EXTEND];
 			
@@ -268,9 +245,8 @@
 				initialize = base.prototype.constructor;
 			}
 			
-			
 			// Include
-			// --------------------------------------------
+			// ------------------------------------------------------
 			
 			includes = definition[INCLUDE];
 			
@@ -287,16 +263,14 @@
 				}
 			}
 			
-			
 			// Methods
-			// --------------------------------------------
+			// ------------------------------------------------------
 			
 			for (var property in definition)
 			{
 				if ( hasOwnProperty.call(definition, property) )
 				{
 					var member = definition[property];
-					
 					
 					switch (property)
 					{
@@ -344,19 +318,16 @@
 			
 			Class.prototype[CONSTRUCTOR] = Class;
 			
-
 			return Class;
 		},
-		
+
 		noConflict : (function (context)
 		{
 			var _Clazzy = context.Clazzy;
 			
-			
 			return function ()
 			{
 				context.Clazzy = _Clazzy;
-				
 				
 				return this;
 			};

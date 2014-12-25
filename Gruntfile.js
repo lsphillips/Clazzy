@@ -1,32 +1,32 @@
 module.exports = function (grunt)
 {
 	// Dependencies
-	// ----------------------------------------------------
+	// --------------------------------------------------------------
 	
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-
-
+	grunt.loadNpmTasks('grunt-contrib-nodeunit');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	
 	// Configuration
-	// ----------------------------------------------------
+	// --------------------------------------------------------------
 	
 	grunt.initConfig(
 	{
-		// Cleaning
-		// ------------------------------------------------
+		package : grunt.file.readJSON('package.json'),
 
-		clean :
+		// ----------------------------------------------------------
+
+		jshint : // https://github.com/gruntjs/grunt-contrib-jshint
 		{
-			src : ['dist']
+			options :
+			{
+				jshintrc : '.jshintrc'
+			},
+			
+			src : ['src/Clazzy.js', 'test/Clazzy.js']
 		},
-		
-		
-		// Tests
-		// ------------------------------------------------
 
-		nodeunit :
+		nodeunit : // https://github.com/gruntjs/grunt-contrib-nodeunit
 		{
 			options :
 			{
@@ -36,51 +36,40 @@ module.exports = function (grunt)
 			all : ['test/Clazzy.js']
 		},
 
-
-		// Compression
-		// ------------------------------------------------
-
-		uglify :
+		uglify : // https://github.com/gruntjs/grunt-contrib-uglify
 		{
 			build :
 			{
-				src  : 'src/Clazzy.js',
-				dest : 'dist/Clazzy.js'
+				files :
+				{
+					'build/Clazzy.js' : 'src/Clazzy.js' 
+				}
 			},
 
-			options : { report : 'gzip' }
-		},
-
-
-		// Code Quality
-		// ------------------------------------------------
-		
-		jshint :
-		{
 			options :
 			{
-				jshintrc : '.jshintrc'
-			},
-			
-			src : ['src/Clazzy.js', 'test/Clazzy.js']
+				banner : '// Clazzy                                                         \n'
+				       + '// Version: <%= package.version %>                                \n'
+				       + '// Author: <%= package.author.name %> (<%= package.author.url %>) \n'
+				       + '// License: <%= package.license %>                                \n',
+
+				report : 'gzip'
+			}
 		}
 	});
 	
-	
-	// Task: `default`
-	// ----------------------------------------------------
-	
-	grunt.registerTask('default', ['jshint', 'nodeunit', 'clean', 'uglify']);
-	
-
-	// Task: `build`
-	// ----------------------------------------------------
-	
-	grunt.registerTask('build', ['jshint', 'nodeunit', 'clean', 'uglify']);
-	
-	
 	// Task: `test`
-	// ----------------------------------------------------
+	// --------------------------------------------------------------
 	
 	grunt.registerTask('test', ['jshint', 'nodeunit']);
+
+	// Task: `build`
+	// --------------------------------------------------------------
+	
+	grunt.registerTask('build', ['test', 'uglify']);
+
+	// Task: `default`
+	// --------------------------------------------------------------
+	
+	grunt.registerTask('default', ['build']);
 };
