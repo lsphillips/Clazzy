@@ -1,6 +1,8 @@
-## Clazzy
+# Clazzy
 
 A cross platform JavaScript library that provides a classical interface to prototypal inheritance.
+
+**This project is now deprecated in favor of the ECMAScript 6 class syntax, this project will no longer be maintained. Sorry!**
 
 ## Usage
 
@@ -10,7 +12,6 @@ A cross platform JavaScript library that provides a classical interface to proto
 var Foo = Clazzy.create(
 {
 	// Constructor
-	// --------------------------------
 
 	initialize : function ()
 	{
@@ -18,7 +19,6 @@ var Foo = Clazzy.create(
 	},
 
 	// Instance methods
-	// --------------------------------
 
 	bar : function ()
 	{
@@ -29,11 +29,10 @@ var Foo = Clazzy.create(
 	{
 		return baz;
 	},
-	
-	// Static methods
-	// --------------------------------
 
-	static : 
+	// Static methods
+
+	static :
 	{
 		qux : function ()
 		{
@@ -48,12 +47,12 @@ foo.foo; // 'foo'
 
 foo.bar(); // 'bar'
 
-foo.baz('baz'); // 'baz' 
+foo.baz('baz'); // 'baz'
 
 Foo.qux(); // 'qux'
 ```
 
-*Note:* Instance properties can be defined in the definition, however their inital value should be set in the constructor.
+**Note:** Instance properties can be defined in the definition, however their inital value should be set in the constructor.
 
 ### Creating a class that extends another class
 
@@ -62,17 +61,12 @@ var Bar = Clazzy.create(
 {
 	extend : Foo,
 
-	// --------------------------------
-
 	initialize : function ()
 	{
 		this.super();
-	 // -------------
 
 	 	this.corge = 'corge';
 	},
-
-	// --------------------------------
 
 	baz : function ()
 	{
@@ -98,7 +92,7 @@ bar.baz('qux'); // 'super qux'
 Bar.qux(); // throws an error
 ```
 
-*Note:*
+**Note:**
 
 * Static methods are not inherited.
 * If a method overrides one of its base class methods, you can invoke the overridden method through the use of the `super` method.
@@ -111,8 +105,6 @@ Clazzy provides a method of code reuse called includes. Behaving similarly to Ru
 var Baz = Clazzy.create(
 {
 	include : [Foo],
-
-	// --------------------------------
 
 	moo : function ()
 	{
@@ -133,7 +125,7 @@ baz.moo(); // 'moo'
 Baz.qux(); // throws an error
 ```
 
-*Note:*
+**Note:**
 
 * Static methods are not included.
 * The super method, when invoked from an included method, does not reference the hierarchy of the class it's included in.
@@ -141,54 +133,28 @@ Baz.qux(); // throws an error
 
 ## Getting started
 
-### Node
-
-Clazzy is available through the Node Package Manager, so you can install like so:
+Clazzy is available through the Node Package Manager (NPM), so you can install it like so:
 
 ``` sh
 npm install clazzy
 ```
 
-and bring into your code like so:
-
-``` js
-var Clazzy = require('clazzy');
-```
-
-### Browser
-
-To use Clazzy in a browser envrionment, just use a script tag like so:
-
-``` html
-<script type="text/javascript" src="path/to/Clazzy.js"></script>
-```
-
-To remove Clazzy from the global namespace, you can use `Clazzy.noConflict()`, like so:
-
-``` js
-Namespace.Clazzy = Clazzy.noConflict();
-```
-
 ## Development
 
-Grunt is used to handle the build process for Clazzy. To perform a full build, use the `build` task:
+Grunt is used to handle the build process for this project. To perform a full build, use the `build` task:
 
 ``` sh
 grunt build
 ```
 
-which is just an alias for the `default` task:
-
-``` sh
-grunt
-```
-
-To only check code quality and/or run unit tests use the `test` task:
+To only run tests use the `test` task:
 
 ``` sh
 grunt test
 ```
 
+This also runs code quality checks using JSHint. Please refer to the `.jshintrc` file to familiar yourself with the rules.
+
 ## License
 
-Clazzy is released under the MIT License.
+This project is released under the MIT License.

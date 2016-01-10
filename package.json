@@ -1,16 +1,14 @@
 {
 	"name" : "clazzy",
 
-	"version" : "0.1.2",
+	"version" : "0.2.0",
 
 	"description" : "A cross platform JavaScript library that provides a classical interface to prototypal inheritance.",
 
 	"author" :
 	{
 		"name" : "Luke Phillips",
-
-		"email" : "lukephil92@gmail.com",
-
+		"email" : "lsphillips.mail@gmail.com",
 		"url" : "http://lsphillips.com"
 	},
 
@@ -21,7 +19,7 @@
 		"extend",
 		"base",
 		"include",
-		"trait", 
+		"trait",
 		"mixin"
 	],
 
@@ -32,23 +30,11 @@
 		"url" : "https://github.com/lsphillips/Clazzy/issues"
 	},
 
-	"directories" :
-	{
-		"src" : "src",
-		"test" : "test"
-	},
-
 	"devDependencies" :
 	{
-		"grunt" : "^0.4.5",
-		"grunt-contrib-jshint" : "^0.10.0",
-		"grunt-contrib-uglify" : "^0.5.1",
-		"grunt-contrib-nodeunit" : "^0.4.1"
-	},
-
-	"scripts" :
-	{
-		"test" : "grunt test"
+		"grunt" : "0.4.5",
+		"grunt-contrib-jshint" : "0.11.3",
+		"grunt-contrib-nodeunit" : "0.4.1"
 	},
 
 	"main" : "src/Clazzy.js",

@@ -1,342 +1,291 @@
-(function (name, factory, context)
-{
-	if (typeof module !== 'undefined' && module.exports)
-	{
-		module.exports = factory.call(context);
-	}
-	else if (typeof define === 'function' && define.amd)
-	{
-		define(name, [], factory);
-	}
-	else
-	{
-		context[name] = factory.call(context);
-	}
-	
-}) ('Clazzy', function ()
-{
-	'use strict';
-	
-	// We need to pass array-like objects, such as the arguments 
-	// object, to `Function#apply`, however not all implementations yet 
-	// allow array-like objects to be passed to it. So we need to 
-	// convert them to an array, this can be done using `Array#slice`.
-	// 
-	// A further problem, is you can't slice array-like objects 
-	// directly, like so:
-	// 
-	//    arguments.slice(0);
-	// 
-	// As they aren't arrays, however the method will still work if 
-	// applied like this:
-	// 
-	//    Array.prototype.slice.call(arguments, 0);
-	var slice = Array.prototype.slice;
+'use strict';
 
-	// The `Object.hasOwnProperty` method is not protected, which
-	// allows an object to override it, making using the method
-	// like this:
-	// 
-	//    object.hasOwnProperty('property');
-	//    
-	// Very unreliable, so we need to do this instead:
-	// 
-	//    Object.prototype.hasOwnProperty(object, 'property');
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
+// We need to pass array-like objects, such as the arguments
+// object, to `Function#apply`, however not all implementations yet
+// allow array-like objects to be passed to it. So we need to
+// convert them to an array, this can be done using `Array#slice`.
+//
+// A further problem, is you can't slice array-like objects
+// directly, like so:
+//
+//    arguments.slice(0);
+//
+// As they aren't arrays, however the method will still work if
+// applied like this:
+//
+//    Array.prototype.slice.call(arguments, 0);
+var slice = Array.prototype.slice;
 
-	// Keywords
-	// --------------------------------------------------------------
-	
-	var SUPER       = 'super';
-	var INITIALIZE  = 'initialize';
-	var EXTEND      = 'extend';
-	var STATIC      = 'static';
-	var INCLUDE     = 'include';
-	var FUNCTION    = 'function';
-	var CONSTRUCTOR = 'constructor';
-	
-	// Helpers
-	// --------------------------------------------------------------
-	
-	var createAnUnconstructedInstanceOfClass = (function ()
+// Keywords
+// ------------------------------------------------------------------
+
+var SUPER       = 'super';
+var INITIALIZE  = 'initialize';
+var EXTEND      = 'extend';
+var STATIC      = 'static';
+var INCLUDE     = 'include';
+var FUNCTION    = 'function';
+var CONSTRUCTOR = 'constructor';
+
+// Helpers
+// ------------------------------------------------------------------
+
+var createAnUnconstructedInstanceOfClass = (function ()
+{
+	if (Object.create === undefined)
 	{
-		if (Object.create === undefined)
-		{
-			return function (clazz)
-			{
-				function Surrogate ()
-				{
-					// A surrogate function that does nothing. It
-					// will allow us to create an object of a
-					// prototype without running it's constructor.
-				}
-				
-				Surrogate.prototype              = clazz.prototype;
-				Surrogate.prototype[CONSTRUCTOR] = clazz;
-				
-				return new Surrogate();
-			};
-		}
-		
 		return function (clazz)
 		{
-			return Object.create(clazz.prototype);
-		};
-
-	}) ();
-
-	var copyProperty = (function ()
-	{
-		// IE8 implements `Object.defineProperty`, however it only
-		// works on DOM elements. So IE8 must also use a fall-back
-		// method, requiring us to check for the implementation of
-		// `Object.defineProperties` instead.
-		if (Object.defineProperties === undefined)
-		{
-			return function (source, target, property)
+			function Surrogate ()
 			{
-				target[property] = source[property];
-			};
-		}
-		
-		return function (source, target, property, deep)
-		{
-			var descriptor = getPropertyDescriptor(source, property, deep);
-			
-			if (descriptor !== undefined)
-			{
-				// Normally this would suffice: 
-				// 
-				//   target[property] = methods[property];
-				// 
-				// However for ECMA5 getters, this wouldn't work, as it
-				// would be invoked, assigning the value being 
-				// returned by the getter, rather than it's definition.
-				Object.defineProperty(target, property, descriptor);
+				// A surrogate function that does nothing. It
+				// will allow us to create an object of a
+				// prototype without running it's constructor.
 			}
-		};
-		
-	}) ();
 
-	var copyProperties = function (source, target, deep)
+			Surrogate.prototype              = clazz.prototype;
+			Surrogate.prototype[CONSTRUCTOR] = clazz;
+
+			return new Surrogate();
+		};
+	}
+
+	return function (clazz)
 	{
-		for (var property in source)
-		{
-			if ( deep || hasOwnProperty.call(source, property) )
-			{
-				copyProperty(source, target, property, deep);
-			}
-		}
+		return Object.create(clazz.prototype);
 	};
 
-	var getPropertyDescriptor = function (object, property, deep)
+}) ();
+
+var getPropertyDescriptor = function (object, property, deep)
+{
+	var descriptor = Object.getOwnPropertyDescriptor(object, property);
+
+	if (descriptor !== undefined)
 	{
-		var descriptor = Object.getOwnPropertyDescriptor(object, property);
-		
+		return descriptor;
+	}
+
+	if (deep)
+	{
+		var prototype = object;
+
+		do
+		{
+			prototype = Object.getPrototypeOf(prototype);
+
+			// Climb down the next kink of the prototype chain and
+			// attempt to retrieve the property descriptor from
+			// that kink.
+			descriptor = Object.getOwnPropertyDescriptor(prototype, property);
+		}
+		while (prototype !== undefined && descriptor === undefined);
+	}
+
+	return descriptor;
+};
+
+var copyProperty = (function ()
+{
+	// IE8 implements `Object.defineProperty`, however it only
+	// works on DOM elements. So IE8 must also use a fall-back
+	// method, requiring us to check for the implementation of
+	// `Object.defineProperties` instead.
+	if (Object.defineProperties === undefined)
+	{
+		return function (source, target, property)
+		{
+			target[property] = source[property];
+		};
+	}
+
+	return function (source, target, property, deep)
+	{
+		var descriptor = getPropertyDescriptor(source, property, deep);
+
 		if (descriptor !== undefined)
 		{
-			return descriptor;
+			// Normally this would suffice:
+			//
+			//   target[property] = methods[property];
+			//
+			// However for ECMA5 getters, this wouldn't work, as it
+			// would be invoked, assigning the value being
+			// returned by the getter, rather than it's definition.
+			Object.defineProperty(target, property, descriptor);
 		}
-		
-		if (deep)
-		{
-			var prototype = object;
-			
-			do
-			{
-				prototype = Object.getPrototypeOf(prototype);
-				
-				// Climb down the next kink of the prototype chain and
-				// attempt to retrieve the property descriptor from
-				// that kink.
-				descriptor = Object.getOwnPropertyDescriptor(prototype, property);
-			}
-			while (prototype !== undefined && descriptor === undefined);
-		}
-		
-		return descriptor;
 	};
 
-	// --------------------------------------------------------------
-	
-	var wrap = (function ()
+}) ();
+
+var copyProperties = function (source, target, deep)
+{
+	for (var property in source)
 	{
-		function noSuper ()
+		if ( deep || hasOwnProperty.call(source, property) )
 		{
-			throw new Error('[Clazzy] Cannot call super, this method does not override a parent method');
+			copyProperty(source, target, property, deep);
 		}
-		
-		return function (method, signature, base)
-		{
-			return function ()
-			{
-				var tmp = this[SUPER];
-				
-				this[SUPER] = base.prototype[signature] || noSuper;
-				
-				var result;
-				
-				try // to execute the method.
-				{
-					result = method.apply(
-						this, slice.call(arguments)
-					);
-				}
-				finally
-				{
-					this[SUPER] = tmp;
-				}
-				
-				return result;
-			};
-		};
+	}
+};
 
-	}) ();
+// ------------------------------------------------------------------
 
-	// --------------------------------------------------------------
-
-	var Clazzy = 
+var wrap = (function ()
+{
+	function noSuper ()
 	{
-		create : function (definition)
-		{
-			if (definition === undefined)
-			{
-				definition = {};
-			}
-			
-			var initialize, base, includes;
+		throw new Error('Cannot call super, this method does not override a parent method');
+	}
 
-			// Constructor
-			// ------------------------------------------------------
-			
-			function Class ()
+	return function (method, signature, base)
+	{
+		return function ()
+		{
+			var tmp = this[SUPER];
+
+			this[SUPER] = base.prototype[signature] || noSuper;
+
+			var result;
+
+			try // to execute the method.
 			{
-				if (includes !== undefined)
-				{
-					for (var i = 0, l = includes.length; i < l; ++i)
-					{
-						includes[i].call(this);
-					}
-				}
-				
-				if (initialize !== undefined)
-				{
-					initialize.apply(
-						this, slice.call(arguments)
-					);
-				}
+				result = method.apply(
+					this, slice.call(arguments)
+				);
 			}
-			
-			// Extend
-			// ------------------------------------------------------
-			
-			base = definition[EXTEND];
-			
-			if (base === undefined)
+			finally
 			{
-				base = Object;
+				this[SUPER] = tmp;
 			}
-			else
-			{
-				Class.prototype = createAnUnconstructedInstanceOfClass(base);
-				
-				// Default the class initializer to the base class
-				// constructor.
-				initialize = base.prototype.constructor;
-			}
-			
-			// Include
-			// ------------------------------------------------------
-			
-			includes = definition[INCLUDE];
-			
+
+			return result;
+		};
+	};
+
+}) ();
+
+// ------------------------------------------------------------------
+
+module.exports =
+{
+	create : function (definition)
+	{
+		if (definition === undefined)
+		{
+			definition = {};
+		}
+
+		var initialize, base, includes;
+
+		// 1) Constructor
+
+		function Class ()
+		{
 			if (includes !== undefined)
 			{
 				for (var i = 0, l = includes.length; i < l; ++i)
 				{
-					var include = createAnUnconstructedInstanceOfClass(
-						includes[i]
-					);
-					
-					
-					copyProperties(include, Class.prototype, true);
+					includes[i].call(this);
 				}
 			}
-			
-			// Methods
-			// ------------------------------------------------------
-			
-			for (var property in definition)
+
+			if (initialize !== undefined)
 			{
-				if ( hasOwnProperty.call(definition, property) )
-				{
-					var member = definition[property];
-					
-					switch (property)
-					{
-						case INITIALIZE :
-							
-							initialize = wrap(member, CONSTRUCTOR, base);
-							
-						break;
-						
-						case EXTEND  :
-						case INCLUDE : 
-							
-							// We have already dealt with these
-							// properties.
-							
-						break;
-						
-						case STATIC :
-							
-							copyProperties(member, Class, false);
-							
-						break;
-
-						case SUPER :
-
-							throw new Error('[Clazzy] Cannot create class, `super` is a reserved method name');
-						
-						default :
-							
-							if (typeof member === FUNCTION)
-							{
-								// Always wrap the method, even if a
-								// parent method doesn't exist at the
-								// moment, as a method could later be
-								// injected into the prototye.
-								Class.prototype[property] = wrap(member, property, base);
-							}
-							else
-							{
-								copyProperty(definition, Class.prototype, property);
-							}
-					}
-				}
+				initialize.apply(
+					this, slice.call(arguments)
+				);
 			}
-			
-			Class.prototype[CONSTRUCTOR] = Class;
-			
-			return Class;
-		},
+		}
 
-		noConflict : (function (context)
+		// 2) Inherit
+
+		base = definition[EXTEND];
+
+		if (base === undefined)
 		{
-			var _Clazzy = context.Clazzy;
-			
-			return function ()
+			base = Object;
+		}
+		else
+		{
+			Class.prototype = createAnUnconstructedInstanceOfClass(base);
+
+			// Default the class initializer to the base class
+			// constructor.
+			initialize = base.prototype.constructor;
+		}
+
+		// 3) Mixin
+
+		includes = definition[INCLUDE];
+
+		if (includes !== undefined)
+		{
+			for (var i = 0, l = includes.length; i < l; ++i)
 			{
-				context.Clazzy = _Clazzy;
-				
-				return this;
-			};
+				var include = createAnUnconstructedInstanceOfClass(
+					includes[i]
+				);
 
-		}) (this)
-	};
 
-	// --------------------------------------------------------------
-	
-	return Clazzy;
-	
-}, this);
+				copyProperties(include, Class.prototype, true);
+			}
+		}
+
+		// 4) Define
+
+		for (var property in definition)
+		{
+			if ( hasOwnProperty.call(definition, property) )
+			{
+				var member = definition[property];
+
+				switch (property)
+				{
+					case INITIALIZE :
+
+						initialize = wrap(member, CONSTRUCTOR, base);
+
+					break;
+
+					case EXTEND  :
+					case INCLUDE :
+
+						// We have already dealt with these
+						// properties.
+
+					break;
+
+					case STATIC :
+
+						copyProperties(member, Class, false);
+
+					break;
+
+					case SUPER :
+
+						throw new Error('Cannot create class, `super` is a reserved method name.');
+
+					default :
+
+						if (typeof member === FUNCTION)
+						{
+							// Always wrap the method, even if a
+							// parent method doesn't exist at the
+							// moment, as a method could later be
+							// injected into the prototye.
+							Class.prototype[property] = wrap(member, property, base);
+						}
+						else
+						{
+							copyProperty(definition, Class.prototype, property);
+						}
+				}
+			}
+		}
+
+		Class.prototype[CONSTRUCTOR] = Class;
+
+		return Class;
+	}
+};
