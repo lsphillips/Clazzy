@@ -131,7 +131,7 @@ var copyProperties = function (source, target, deep)
 
 // ------------------------------------------------------------------
 
-var wrap = (function ()
+var wrapMethodToHaveSuper = (function ()
 {
 	function noSuper ()
 	{
@@ -244,7 +244,7 @@ module.exports =
 				{
 					case INITIALIZE :
 
-						initialize = wrap(member, CONSTRUCTOR, base);
+						initialize = wrapMethodToHaveSuper(member, CONSTRUCTOR, base);
 
 					break;
 
@@ -274,7 +274,7 @@ module.exports =
 							// parent method doesn't exist at the
 							// moment, as a method could later be
 							// injected into the prototye.
-							Class.prototype[property] = wrap(member, property, base);
+							Class.prototype[property] = wrapMethodToHaveSuper(member, property, base);
 						}
 						else
 						{
