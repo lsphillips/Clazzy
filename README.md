@@ -65,7 +65,7 @@ var Bar = Clazzy.create(
 	{
 		this.super();
 
-	 	this.corge = 'corge';
+		 this.corge = 'corge';
 	},
 
 	baz : function ()

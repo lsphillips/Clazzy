@@ -227,7 +227,6 @@ module.exports =
 					includes[i]
 				);
 
-
 				copyProperties(include, Class.prototype, true);
 			}
 		}
@@ -251,8 +250,7 @@ module.exports =
 					case EXTEND  :
 					case INCLUDE :
 
-						// We have already dealt with these
-						// properties.
+						// We have already dealt with these properties.
 
 					break;
 
