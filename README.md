@@ -2,23 +2,27 @@
 
 A cross platform JavaScript library that provides a classical interface to prototypal inheritance.
 
-**This project is now deprecated in favor of the ECMAScript 6 class syntax, this project will no longer be maintained. Sorry!**
+**This project is now deprecated in favor of the ECMAScript 6 class syntax, this project will no longer be maintained.**
 
 ## Usage
+
+Clazzy has a single method with this signature:
+
+```
+Function Clazzy.create(Object definition)
+```
+
+It returns a constructor function, with a prototype populated using the provided definition, that you can instantiate using the `new` keyword.
 
 ### Creating a class
 
 ``` js
 var Foo = Clazzy.create(
 {
-	// Constructor
-
 	initialize : function ()
 	{
 		this.foo = 'foo';
 	},
-
-	// Instance methods
 
 	bar : function ()
 	{
@@ -30,8 +34,6 @@ var Foo = Clazzy.create(
 		return baz;
 	},
 
-	// Static methods
-
 	static :
 	{
 		qux : function ()
@@ -40,19 +42,9 @@ var Foo = Clazzy.create(
 		}
 	}
 });
-
-var foo = new Foo();
-
-foo.foo; // 'foo'
-
-foo.bar(); // 'bar'
-
-foo.baz('baz'); // 'baz'
-
-Foo.qux(); // 'qux'
 ```
 
-**Note:** Instance properties can be defined in the definition, however their inital value should be set in the constructor.
+**Note:** Instance properties can be defined in the definition, however their initial value should be set in the constructor.
 
 ### Creating a class that extends another class
 
@@ -78,18 +70,6 @@ var Bar = Clazzy.create(
 		return 'super ' + this.super(baz);
 	}
 });
-
-var bar = new Bar();
-
-bar.foo; // 'foo'
-
-bar.corge; // 'corge'
-
-bar.bar(); // 'bar'
-
-bar.baz('qux'); // 'super qux'
-
-Bar.qux(); // throws an error
 ```
 
 **Note:**
@@ -99,7 +79,7 @@ Bar.qux(); // throws an error
 
 ### Creating a class that includes another class
 
-Clazzy provides a method of code reuse called includes. Behaving similarly to Ruby's mixins and PHP's traits, they enable a developer to reuse sets of methods freely in several independent classes living in different class hierarchies.
+Clazzy provides a method of code reuse called includes. Behaving similarly to Ruby's mixins and PHP's traits, they enable a developer to reuse sets of methods freely in several independent classes defined in different class hierarchies.
 
 ``` js
 var Baz = Clazzy.create(
@@ -111,18 +91,6 @@ var Baz = Clazzy.create(
 		return 'moo';
 	}
 });
-
-var baz = new Baz();
-
-baz.foo; // 'foo'
-
-baz.bar(); // 'bar'
-
-baz.baz('baz'); // 'baz'
-
-baz.moo(); // 'moo'
-
-Baz.qux(); // throws an error
 ```
 
 **Note:**
