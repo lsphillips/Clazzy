@@ -1,5 +1,7 @@
 # Clazzy
 
+![Travis Build Status](https://travis-ci.org/lsphillips/Clazzy.svg?branch=master)
+
 A cross platform JavaScript library that provides a classical interface to prototypal inheritance.
 
 **This project is now deprecated in favor of the ECMAScript 6 class syntax, this project will no longer be maintained.**
