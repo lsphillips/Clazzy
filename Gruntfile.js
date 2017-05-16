@@ -1,13 +1,17 @@
+'use strict';
+
+// --------------------------------------------------------
+
 module.exports = function (grunt)
 {
 	// Dependencies
-	// --------------------------------------------------------------
+	// -------------------------------------------------------
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
 	// Configuration
-	// --------------------------------------------------------------
+	// -------------------------------------------------------
 
 	grunt.initConfig(
 	{
@@ -21,6 +25,8 @@ module.exports = function (grunt)
 			src : ['src/Clazzy.js', 'tests/Clazzy.js']
 		},
 
+		// ------------------------------------------------------
+
 		nodeunit :
 		{
 			options :
@@ -33,12 +39,12 @@ module.exports = function (grunt)
 	});
 
 	// Task: `test`
-	// --------------------------------------------------------------
+	// -------------------------------------------------------
 
 	grunt.registerTask('test', ['jshint', 'nodeunit']);
 
 	// Task: `default`
-	// --------------------------------------------------------------
+	// -------------------------------------------------------
 
 	grunt.registerTask('default', ['test']);
 };

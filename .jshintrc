@@ -20,7 +20,6 @@
 	"undef"         : true,
 	"unused"        : true,
 	"varstmt"       : false,
-
 	"asi"           : false,
 	"boss"          : false,
 	"debug"         : false,
@@ -36,6 +35,5 @@
 	"supernew"      : false,
 	"validthis"     : false,
 	"withstmt"      : false,
-
 	"node"          : true
 }
