@@ -4,6 +4,7 @@
 .jshintrc
 .gitignore
 .travis.yml
+Gruntfile.js
 
 # Directories
 # -----------------
