@@ -1,6 +1,6 @@
 # DEPRECATED
 
-This project is now deprecated in favour of the ECMAScript 6 class syntax, this project will no longer be maintained.
+This project is now deprecated in favour of the ECMAScript 6 class syntax; this project will no longer be maintained.
 
 ---
 
