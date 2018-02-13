@@ -1,11 +1,15 @@
+# DEPRECATED
+
+This project is now deprecated in favour of the ECMAScript 6 class syntax, this project will no longer be maintained.
+
+---
+
 # Clazzy
 
 [![Available from NPM](https://img.shields.io/npm/v/clazzy.svg?maxAge=900)](https://www.npmjs.com/package/clazzy)
 [![Built using Travis](https://img.shields.io/travis/lsphillips/Clazzy/master.svg?maxAge=900)](https://travis-ci.org/lsphillips/Clazzy)
 
 A cross platform JavaScript library that provides a classical interface to prototypal inheritance.
-
-**This project is now deprecated in favor of the ECMAScript 6 class syntax, this project will no longer be maintained.**
 
 ## Usage
 

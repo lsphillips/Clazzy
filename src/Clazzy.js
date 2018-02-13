@@ -271,7 +271,7 @@ module.exports =
 							// Always wrap the method, even if a
 							// parent method doesn't exist at the
 							// moment, as a method could later be
-							// injected into the prototye.
+							// injected into the prototype.
 							Class.prototype[property] = wrapMethodToHaveSuper(member, property, base);
 						}
 						else
