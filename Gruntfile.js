@@ -22,7 +22,7 @@ module.exports = function (grunt)
 				jshintrc : '.jshintrc'
 			},
 
-			src : ['src/Clazzy.js', 'tests/Clazzy.js']
+			src : ['src/Clazzy.js', 'tests/Clazzy.test.js']
 		},
 
 		// ------------------------------------------------------
@@ -34,7 +34,7 @@ module.exports = function (grunt)
 				reporter : 'verbose'
 			},
 
-			all : ['tests/Clazzy.js']
+			all : ['tests/Clazzy.test.js']
 		}
 	});
 
