@@ -1,6 +1,3 @@
-# Build
-# -------------------------------------
-
 language: node_js
 node_js:
     - "0.10"
@@ -10,15 +7,3 @@ node_js:
     - "5"
     - "6"
 before_script: "npm install -g grunt-cli"
-
-# Deployment
-# -------------------------------------
-
-deploy:
-    provider: npm
-    on:
-        tags: true
-        node: "6"
-    api_key:
-        secure: "q16R5K2uWAQqxwCmoohbehfQMJ1x4wePZGLwjxnh6bDmvShb7ST0bgnNyUC3PdUlsL6aIGZtWcT2fz+gR64afgyGlmiykTg7r3Onb/kEZrcR6nFaMDoZC5Y2RvEKyvDNIL3mlepiGOjxl3W/NSaU9eg4uVHbx4v203b/mTL/0I+984mV1CcuSevAk3yPmo1Sq7NQslckRCmgz0+zMOzHvQfa0OFc+eDG2tJFlhzn2RHs7cU2meBJ+SOYTNnRjkzq1MfYnjVeYph308n31Vfxq+eEThHZdCTVSO3ghIVSUbJD5npYn5OpXsV5PrQ6OeIK0UnWH4LmXZEHDLo+X549B4VafjPwKHhPlGuV616jpyQcIhJUfrPxTSuwBGGMYv2Kb09KvkwPXNWBVuoqajxGS3RoMlKtGD/rgqDSplazUw+EM929Hfq2r2+UkeNdiPi9MC9rlj3GFdb8dhu3gNtrcSLztVY30EVOfMmOrKUnox+EOGMO2h80KBsM8nO+sLYKQEHzasTYKu/nwnN+tjGuU0yN4nuDLPc39cegwADR2iyeKTf/fmFSI2yzKHNP1l4VaDTLw1F9UuMxXlg14lXdV+PwbOQTauD89+c+mTDYX7aQamKHwLsoSu6URiQ7Gua9V+pPaNRFgZZrYKoIk9/WrYitozV9W9W3Pyu+YGOnmvA="
-    email: "lsphillips.mail@gmail.com"
